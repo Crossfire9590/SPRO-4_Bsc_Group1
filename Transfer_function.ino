@@ -40,7 +40,7 @@ void setup() {
 }
 
 void loop() {
-  for (int i = 0; i <= 500; i++) {
+  for (int i = 0; i <= 750; i++) {
     unsigned long now = millis();
     if ((now - last_update_time) >= Ts * 1000) {
       last_update_time += Ts * 1000;
@@ -68,9 +68,9 @@ void loop() {
       Serial.println(theta_est);
     }
   }
-  int input_angle = int(theta_est) + 90;
-  float tf = ((input_angle * input_angle) / 2032000) + (input_angle * 1335 / 254) + 0.5;
-  moveconverter(tf);
+  float tf = (((theta_est * theta_est) / 2032000) + (theta_est * 1335 / 254) + 0.5) * 3;
+  float input_angle = tf + 90;
+  moveconverter(input_angle);
 }
 
 void moveconverter(int angle) {
