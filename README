@@ -1,2 +1,5 @@
+The main program used during testing is Transfer_function.ino
+
+
 The program can be opened in Arduino IDE with the Sparkfun Teensy extension installed.
 Guide to package install: https://www.pjrc.com/teensy/td_download.html
