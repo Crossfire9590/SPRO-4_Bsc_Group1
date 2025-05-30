@@ -41,7 +41,7 @@ void setup() {
 }
 
 void loop() {
-  for (int i = 0; i <= 75; i++) {
+  for (int i = 0; i <= 1000; i++) {
     unsigned long now = millis();
     if ((now - last_update_time) >= Ts * 1000) {
       last_update_time += Ts * 1000;
