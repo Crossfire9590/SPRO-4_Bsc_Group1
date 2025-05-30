@@ -16,6 +16,7 @@ float tau = 0.5;                 // Time constant for filter
 float alpha = tau / (Ts + tau);  // Complementary filter parameter
 unsigned long last_update_time = 0;
 
+float input_angle = 0;
 
 
 
@@ -40,7 +41,7 @@ void setup() {
 }
 
 void loop() {
-  for (int i = 0; i <= 750; i++) {
+  for (int i = 0; i <= 75; i++) {
     unsigned long now = millis();
     if ((now - last_update_time) >= Ts * 1000) {
       last_update_time += Ts * 1000;
@@ -65,17 +66,18 @@ void loop() {
       theta_est_prev = theta_est;
 
       //Output
-      Serial.println(theta_est);
+      Serial.println(theta_est, input_angle);
+      delay(10);
     }
   }
-  float tf = (((theta_est * theta_est) / 2032000) + (theta_est * 1335 / 254) + 0.5) * 3;
+  float tf = (((theta_est * theta_est) / 2032000) + (theta_est * 1335 / 254) + 0.5);
   float input_angle = tf + 90;
   moveconverter(input_angle);
 }
 
 void moveconverter(int angle) {
   // Constrain angle to 0–270
-  angle = constrain(angle, 0, 270);
+  angle = constrain(angle, 64, 116);
   // Map 0–270° to minPulse–maxPulse
   int pulse = map(angle, 0, 270, minPulse, maxPulse);
   //set motor
